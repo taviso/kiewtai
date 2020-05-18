@@ -18,3 +18,4 @@
 build-*/
 parsers
 parsers.h
+*.zip

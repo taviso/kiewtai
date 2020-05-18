@@ -1,12 +1,16 @@
 # Introduction
 
-Kiewtai is a HEM (aka plugin) for the [Hiew](http://www.hiew.ru/)  hex editor
+Kiewtai is a HEM (aka plugin) for the [Hiew](http://www.hiew.ru/) hex editor
 that makes all the binary parsers from the [Kaitai](https://kaitai.io/) project
-available. This means you can get all the fields marked and decoded for many
-popular file formats, or use the Kaitai format to write a new template for a
-file format you're studying.
+available. This means you can get all the fields marked and decoded for dozens
+of popular file formats. You can also use the Kaitai format to write a new
+template for a file format you're analyzing.
 
 ![Screenshot](kiewtai.png)
+
+> Click [here](https://formats.kaitai.io/) to see a list of all the formats
+> supported by Kaitai.
+
 
 # Installation
 
@@ -57,11 +61,16 @@ you  like.
 
 # Notes
 
+> If you're a Hiew user and want to help make better documentation, click 
+> [https://github.com/taviso/hiewdocs](here)!
+
 This project is uses the following third party tools libraries:
 
 - Hiew v8.69 and the HEM SDK v0.53 [http://www.hiew.ru/](http://www.hiew.ru/)
 - Kaitai Struct  v0.8 [https://kaitai.io/](https://kaitai.io/)
 - Duktape v2.5.0 [https://duktape.org/](https://duktape.org/)
+
+Please feel free to file an issue for any bugs, missing features or documentation!
 
 # Building
 
