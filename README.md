@@ -6,8 +6,7 @@ available. This means you can get all the fields marked and decoded for many
 popular file formats, or use the Kaitai format to write a new template for a
 file format you're studying.
 
-![Kiewtai JPEG Demo](kiewtai-jpg.gif)
-
+![Screenshot](kiewtai.png)
 
 # Installation
 
@@ -26,6 +25,8 @@ You will be shown a list of all supported parsers, select the one you want.
 
 Kiewtai will highlight the different fields, and add a comment describing the
 field.
+
+![Kiewtai JPEG Demo](kiewtai-jpg.gif)
 
 # Advanced Usage
 
