@@ -1,0 +1,183 @@
+# vim: syntax=make
+#
+# Reasonable default GNU Makefile rules for new Windows development projects.
+#
+# Notes
+#
+#   * You can append rules to clean by using clean::
+#   * If you dont want the default rules, use one colon, e.g. clean:
+#   * Add everything you want built as a dependency to all
+#   * Append to existing flags/lists with +=, e.g. LDLIBS+=user32
+#   * Target specific changes should look like target: CFLAGS+=/xyz
+#   * `make debug` is the same as `make all` but without optimization flags.
+#   * `make release` is the same as `make all` but with NDEBUG and similar.
+#   * You can append rules to debug and release, just use ::
+#   * You dont need to override pattern commands, just do this:
+#       include ../GNUmakefile.common
+#       all: example.dll
+#       # The main file should be called example.c
+#       example.dll: otherdep1.obj otherdep2.obj
+#   * Append warnings you don't like to WIGNORE, e.g. WIGNORE+=/wd1234
+#
+# Examples
+#
+#   simplest
+#
+#       include ../GNUmakefile.common
+#
+#       all: example.exe
+#
+#   dependencies
+#
+#       include ../GNUmakefile.common
+#
+#       all: example.exe
+#
+#       example.exe: example.obj foo.obj bar.obj
+#
+#   cmake
+#
+#   .INTERMEDIATE: cmake@dirname
+#   test.lib: CMPROJECT=Check   # name of the project, default is name of dir
+#   test.lib: cmake@dirname     # where the CMakeLists.txt is
+#       cp build-$(CMPROJECT)/foo.lib $@
+#
+#
+# (c) 2019-2020 Tavis Ormandy <taviso@gmail.com>
+#
+CC=cl.exe
+RC=rc.exe
+AR=lib.exe
+MIDL=midl.exe
+MB=msbuild.exe
+MT=mt.exe
+CANDLE=candle.exe
+LIGHT=light.exe
+VSDEVCMD=cmd.exe /c vsdevcmd.bat
+CANDLEFLAGS=-nologo
+LIGHTFLAGS=-nologo
+CPPFLAGS=
+RFLAGS=/nologo
+COPTFLAGS=/O2
+CSECFLAGS=/guard:cf
+CDEBFLAGS=/Wall /analyze $(WIGNORE)
+BUILDCONFIG=Release
+CFLAGS=/nologo $(CPPFLAGS) /Zi $(COPTFLAGS) $(CSECFLAGS) /GF
+LFLAGS=/nologo /machine:x86
+MFLAGS=
+MTFLAGS=-nologo -canonicalize
+CXXFLAGS=$(CFLAGS) /EHsc
+LDLIBS=
+LDFLAGS=/MT
+LINKFLAGS=
+CM=cmake.exe
+CMFLAGS=-A Win32 -D CMAKE_BUILD_TYPE=$(BUILDCONFIG)
+MBFLAGS=/nologo /m                      \
+    /verbosity:quiet                    \
+    /p:Configuration=$(BUILDCONFIG)     \
+    /p:PlatformToolset=v142             \
+    /p:WindowsTargetPlatformVersion=10
+VFLAGS=-no_logo
+CMPROJECT=$(<D)
+
+# List of warnings that are rarely useful
+WIGNORE=/wd4668
+
+# Commands for arch specific compiler.
+ifeq ($(OS),Windows_NT)
+    # Native
+    CC64=$(VSDEVCMD) $(VFLAGS) -arch=amd64 ^& cl
+    CC32=$(VSDEVCMD) $(VFLAGS) -arch=x86 ^& cl
+    RM=del /q /f /s
+else
+    # WSL
+    CC64=$(VSDEVCMD) $(VFLAGS) -arch=amd64 "&" cl
+    CC32=$(VSDEVCMD) $(VFLAGS) -arch=x86 "&" cl
+    RM=rm -rf
+
+    # Allow bash syntax in recipes
+    SHELL=/bin/bash
+endif
+
+.PHONY: clean
+
+.DEFAULT_GOAL = all
+
+# Debug configuration
+debug:: COPTFLAGS    =
+debug:: CFLAGS      += $(CDEBFLAGS)
+debug:: BUILDCONFIG  = Debug
+debug:: LDFLAGS     += /MTd
+debug:: all
+
+release:: CPPFLAGS  += /DNDEBUG
+release:: all
+
+%.wixobj: %.wxs
+	$(CANDLE) $(CANDLEFLAGS) -out $@ $<
+
+%.msi: %.wixobj
+	$(LIGHT) $(LIGHTFLAGS) -out $@ $<
+
+%_i.h: %.odl
+	$(MIDL) $(MFLAGS) /h $@ $<
+
+%_i.c: %.odl
+	$(MIDL) $(MFLAGS) /iid $@ $<
+
+%.obj: %.cpp
+	$(CC) $(CXXFLAGS) /c /Fo:$@ $<
+
+%.res: %.rc
+	$(RC) $(RFLAGS) $<
+
+%.obj: %.cc
+	$(CC) $(CXXFLAGS) /c /Fo:$@ $<
+
+%.obj: %.cxx
+	$(CC) $(CXXFLAGS) /c /Fo:$@ $<
+
+%.obj: %.c
+	$(CC) $(CFLAGS) /c /Fo:$@ $<
+
+%.exe: %.obj
+	$(CC) $(CFLAGS) $(LDFLAGS) /Fe:$@ $^ /link $(LINKFLAGS) $(LDLIBS:=.lib)
+
+%.dll: %.obj
+	$(CC) $(CFLAGS) $(LDFLAGS) /LD /Fe:$@ $^ /link $(LINKFLAGS) $(LDLIBS:=.lib)
+
+%.lib: %.obj
+	$(AR) $(LFLAGS) /OUT:$@ $^
+
+%64.obj: %.c
+	$(CC) $(CFLAGS) /c /Fd:$(@:.obj=.pdb) /Fo:$@ $<
+
+%32.obj: %.c
+	$(CC) $(CFLAGS) /c /Fd:$(@:.obj=.pdb) /Fo:$@ $<
+
+%64.dll: CC=$(CC64)
+%64.dll: %64.obj
+	$(CC) $(CFLAGS) $(LDFLAGS) /LD /Fd:$(@:.dll=.pdb) /Fe:$@ $^ /link $(LINKFLAGS) $(LDLIBS:=.lib)
+
+%32.dll: CC=$(CC32)
+%32.dll: %32.obj
+	$(CC) $(CFLAGS) $(LDFLAGS) /LD /Fd:$(@:.dll=.pdb) /Fe:$@ $^ /link $(LINKFLAGS) $(LDLIBS:=.lib)
+
+%64.exe: CC=$(CC64)
+%64.exe: %64.obj
+	$(CC) $(CFLAGS) $(LDFLAGS) /Fd:$(@:.dll=.pdb) /Fe:$@ $^ /link $(LINKFLAGS) $(LDLIBS:=.lib)
+
+%32.exe: CC=$(CC32)
+%32.exe: %32.obj
+	$(CC) $(CFLAGS) $(LDFLAGS) /Fd:$(@:.dll=.pdb) /Fe:$@ $^ /link $(LINKFLAGS) $(LDLIBS:=.lib)
+
+cmake@%: %/CMakeLists.txt
+	$(CM) $(CMFLAGS) -S $(<D) -B build-$(CMPROJECT)
+	$(MB) $(MBFLAGS) build-$(CMPROJECT)/$(CMPROJECT).sln
+
+# You can append more commands using clean::
+clean::
+	-$(RM) *.exp *.exe *.obj *.pdb *.ilk *.msi *.res *.ipdb
+	-$(RM) *.iobj *.dll *.tmp *.manifest *.lib *.tlb *.wixobj
+	-$(RM) *.wixpdb *.nativecodeanalysis.xml *.def *.lib
+	-$(RM) build-*
