@@ -6,7 +6,7 @@ available. This means you can get all the fields marked and decoded for many
 popular file formats, or use the Kaitai format to write a new template for a
 file format you're studying.
 
-[!Kiewtai JPEG Demo](kiewtai-jpg.gif)
+![Kiewtai JPEG Demo](kiewtai-jpg.gif)
 
 
 # Installation
@@ -52,7 +52,7 @@ different fields are. Press `F4` if you don't like this.
 The list of parsers is quite long, press `F5` and enter some search terms if
 you  like.
 
-[!Kiewtai EXE Demo](kiewtai-exe.gif)
+![Kiewtai EXE Demo](kiewtai-exe.gif)
 
 # Notes
 
