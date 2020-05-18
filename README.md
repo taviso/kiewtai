@@ -62,7 +62,7 @@ you  like.
 # Notes
 
 > If you're a Hiew user and want to help make better documentation, click 
-> [https://github.com/taviso/hiewdocs](here)!
+> [here](https://github.com/taviso/hiewdocs)!
 
 This project is uses the following third party tools libraries:
 
