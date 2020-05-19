@@ -83,17 +83,23 @@ CMPROJECT=$(<D)
 # List of warnings that are rarely useful
 WIGNORE=/wd4668
 
-# Commands for arch specific compiler.
+# Commands arch specific actions.
 ifeq ($(OS),Windows_NT)
     # Native
     CC64=$(VSDEVCMD) $(VFLAGS) -arch=amd64 ^& cl
     CC32=$(VSDEVCMD) $(VFLAGS) -arch=x86 ^& cl
     RM=del /q /f /s
+    RMDIR=rmdir /s /q
+    CP=copy
+    MV=move
 else
     # WSL
     CC64=$(VSDEVCMD) $(VFLAGS) -arch=amd64 "&" cl
     CC32=$(VSDEVCMD) $(VFLAGS) -arch=x86 "&" cl
-    RM=rm -rf
+    RM=rm -f
+    RMDIR=rm -rf
+    CP=cp
+    MV=mv
 
     # Allow bash syntax in recipes
     SHELL=/bin/bash
