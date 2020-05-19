@@ -66,8 +66,8 @@ you  like.
 
 This project uses the following third party tools libraries:
 
-- Hiew v8.69 and the HEM SDK v0.53 [http://www.hiew.ru/](http://www.hiew.ru/)
-- Kaitai Struct  v0.8 [https://kaitai.io/](https://kaitai.io/)
+- HEM SDK v0.53 [http://www.hiew.ru/](http://www.hiew.ru/)
+- Kaitai Struct  v0.9 [https://kaitai.io/](https://kaitai.io/)
 - Duktape v2.5.0 [https://duktape.org/](https://duktape.org/)
 
 Please feel free to file an issue for any bugs, missing features or documentation!
@@ -121,13 +121,9 @@ full list online [here](https://formats.kaitai.io/).
 # Building
 
 > If you don't want to build it yourself, check out the
-> [releases](https://github.com/taviso/kiewtai/releases)  tab
+> [releases](https://github.com/taviso/kiewtai/releases) tab
 
-I used [GNU make](http://gnuwin32.sourceforge.net/packages/make.htm) and Visual
-Studio 2019 to develop Kiewtai.
-
-I use the "Build Tools" variant of Visual Studio, and the only components I
-have selected are MSVC and the SDK.
+I used Visual Studio 2019 to develop Kiewtai.
 
 This project uses submodules for some of the dependencies, be sure that you're
 using a command like this to fetch all the required code.
@@ -137,8 +133,23 @@ git submodule update --init --recursive
 
 ```
 
-- The Kaitai compiler, ksc, is required.
-- Objcopy from GNU binutils is used to embed the Kaitai parsers.
+1. Download and Install the [Kaitai Struct compiler](https://kaitai.io).
+2. If you don't have them already, install Open JDK, GNU make, and GNU binutils.
+
+If you use chocolatey, this command should be enough:
+
+```
+> choco install make openjdk mingw
+```
+
+3. Open a Visual Studio Developer Command Prompt.
+4. Type `make.exe`
+
+If everything worked, you should have a file called `kiewtai.hem`
+
+If you get `The system cannot find the file specified` errors, verify
+`objcopy.exe`, `make.exe` and `kaitai-struct-compiler.bat` are all in your
+`%PATH%`.
 
 # Author
 

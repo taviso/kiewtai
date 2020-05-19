@@ -92,6 +92,7 @@ ifeq ($(OS),Windows_NT)
     RMDIR=rmdir /s /q
     CP=copy
     MV=move
+    CAT=type
 else
     # WSL
     CC64=$(VSDEVCMD) $(VFLAGS) -arch=amd64 "&" cl
@@ -100,6 +101,7 @@ else
     RMDIR=rm -rf
     CP=cp
     MV=mv
+    CAT=cat
 
     # Allow bash syntax in recipes
     SHELL=/bin/bash

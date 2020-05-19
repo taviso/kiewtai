@@ -17,6 +17,8 @@ all: parsers
 
 parsers: $(ksydefs)
 	$(KSC) $(KFLAGS) -I formats -d parsers $^
+	cd parsers && $(CAT) Exif.js Jpeg.js > ExifJpegCombined.js
+	cd parsers && $(MV) ExifJpegCombined.js Jpeg.js
 
 parsers.h: parsers
 	echo // THIS IS A GENERATED FILE > $@
@@ -33,9 +35,6 @@ ifeq ($(OS),Windows_NT)
 	    echo (ULONG) ^&binary_parsers_%%f_js_size },           >> $@
 	
 	echo }; >> $@
-	
-	REM Special Case: Jpeg requires Exif
-	copy parsers\\Exif.js + parsers\\Jpeg.js ExifJpegCombined.js
 else
 	for f in $(basename $(notdir $(wildcard parsers/*.js))); do         \
 	    printf "extern char binary_parsers_%s_js_start[];\n" $${f};     \
@@ -50,11 +49,9 @@ else
 	done >> $@
 	
 	printf "};\n" >> $@
-	
-	# Special Case: Jpeg requires Exif
-	cat parsers/Exif.js parsers/Jpeg.js > ExifJpegCombined.js
 endif
-	$(MV) ExifJpegCombined.js parsers/Jpeg.js
+
+parsers/Jpeg.js:
 
 kaitai.obj:     | parsers.h
 kiewtai.obj:    | parsers.h
