@@ -76,13 +76,13 @@ Please feel free to file an issue for any bugs, missing features or documentatio
 
 More screenshots of different screens.
 
-## Browsing the list of identified fields in an EXE file.
+## Browsing fields in an EXE file.
 
 You can load multiple Kaitai parsers at any offset you want, this is the
-[https://formats.kaitai.io/dos\_mz/index.html](DosMz) and
-[https://formats.kaitai.io/microsoft\_pe/index.html](MicrosoftPE) parsers
-loaded at once.  If you have an embedded file,
-[https://taviso.github.io/hiewdocs/#mark](mark) it and Kiewtai will only
+[DosMz](https://formats.kaitai.io/dos_mz/index.html) and
+[MicrosoftPE](https://formats.kaitai.io/microsoft_pe/index.html) parsers
+loaded at once. If you have an embedded file, simply
+[mark](https://taviso.github.io/hiewdocs/#mark) it and Kiewtai will only
 analyze that block.
 
 ![Kiewtai MZ/PE fields](doc/kiewtai-fields.png)
@@ -96,7 +96,7 @@ The field names display as comments as you navigate around a file.
 ## Browsing the list of formats available.
 
 Kaitai has parsers for dozens of popular formats already made, you can  see the
-full list online [https://formats.kaitai.io/](here).
+full list online [here](https://formats.kaitai.io/).
 
 ![Kiewtai Parser List](doc/kiewtai-formats.png)
 
