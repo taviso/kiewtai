@@ -36,7 +36,7 @@ field.
 
 > If you want Kiewtai to analyze a section of a larger file, for example you
 > have a firmware blob or filesystem image, Simply mark the section you want
-> analyzed with `*` first.
+> analyzed with `*` first. If you work in DFIR, you might call this "carving".
 
  - Press `F2` to toggle between Simple and Detailed parsing.
 
@@ -45,7 +45,7 @@ The default parsing mode is verbose, try this if you prefer.
  - Press `F3` to enable or disable comments.
 
 Kiewtai will add comments to Hiew describing each field, these are displayed as
-you navigate around. You can also browse and search then with `F12`.
+you navigate around. You can also browse and search them with `F12`.
 
 - Press `F4` to enable or disable markers.
 
@@ -64,7 +64,7 @@ you  like.
 > If you're a Hiew user and want to help make better documentation, click 
 > [here](https://github.com/taviso/hiewdocs)!
 
-This project is uses the following third party tools libraries:
+This project uses the following third party tools libraries:
 
 - Hiew v8.69 and the HEM SDK v0.53 [http://www.hiew.ru/](http://www.hiew.ru/)
 - Kaitai Struct  v0.8 [https://kaitai.io/](https://kaitai.io/)
