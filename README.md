@@ -6,10 +6,10 @@ available. This means you can get all the fields marked and decoded for dozens
 of popular file formats. You can also use the Kaitai format to write a new
 template for a file format you're analyzing.
 
-![Screenshot](doc/kiewtai.png)
-
 > Click [here](https://formats.kaitai.io/) to see a list of all the formats
 > supported by Kaitai.
+
+Want to see it in action? See some [Screenshots](#screenshots)!
 
 
 # Installation
@@ -75,6 +75,19 @@ Please feel free to file an issue for any bugs, missing features or documentatio
 # Screenshots
 
 More screenshots of different screens.
+
+## Browsing a GIF header
+
+You cam see the  magic, version, descriptors, dimensions are all identified.
+
+The comment shows Kiewtai knows this is the `applicationId` field.
+
+Notice that individual R/G/B bytes are hilighted, which makes the data look
+stripey. If that's too much verbosity, don't worry - Press `F2` on the parser
+list and Kiewtay will reduce the level of detail it generates.
+
+![Screenshot](doc/kiewtai.png)
+
 
 ## Browsing fields in an EXE file.
 
