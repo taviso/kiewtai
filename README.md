@@ -72,6 +72,8 @@ This project uses the following third party tools libraries:
 
 Please feel free to file an issue for any bugs, missing features or documentation!
 
+Oh, and I prounounce Kiewtai "cue-tie". `:)`
+
 # Screenshots
 
 Here are some screenshots of different Kiewtai screens.
@@ -84,7 +86,7 @@ The comment shows Kiewtai knows the cursor is on the `applicationId` field.
 
 > The individual R/G/B bytes are hilighted, which makes the data look
 > stripey. If that's *too* much verbosity, press `F2` on the parser
-> list and Kiewtay will reduce the level of detail it generates.
+> list and Kiewtai will reduce the level of detail it generates.
 
 ![Screenshot](doc/kiewtai.png)
 
