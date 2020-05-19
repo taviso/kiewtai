@@ -74,27 +74,29 @@ Please feel free to file an issue for any bugs, missing features or documentatio
 
 # Screenshots
 
-More screenshots of different screens.
+Here are some screenshots of different Kiewtai screens.
 
 ## Browsing a GIF header
 
-You cam see the  magic, version, descriptors, dimensions are all identified.
+You can see the  magic, version, descriptors, dimensions are all identified.
 
-The comment shows Kiewtai knows this is the `applicationId` field.
+The comment shows Kiewtai knows the cursor is on the `applicationId` field.
 
-Notice that individual R/G/B bytes are hilighted, which makes the data look
-stripey. If that's too much verbosity, don't worry - Press `F2` on the parser
-list and Kiewtay will reduce the level of detail it generates.
+> The individual R/G/B bytes are hilighted, which makes the data look
+> stripey. If that's *too* much verbosity, press `F2` on the parser
+> list and Kiewtay will reduce the level of detail it generates.
 
 ![Screenshot](doc/kiewtai.png)
 
 
-## Browsing fields in an EXE file.
+## Show the recognized fields in an EXE file.
 
-You can load multiple Kaitai parsers at any offset you want, this is the
+You can load multiple Kaitai parsers at once, this screenshot shows the
 [DosMz](https://formats.kaitai.io/dos_mz/index.html) and
 [MicrosoftPE](https://formats.kaitai.io/microsoft_pe/index.html) parsers
-loaded at once. If you have an embedded file, simply
+loaded simultaneously.
+
+If you have an embedded file, simply
 [mark](https://taviso.github.io/hiewdocs/#mark) it and Kiewtai will only
 analyze that block.
 
