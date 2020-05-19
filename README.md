@@ -72,6 +72,35 @@ This project uses the following third party tools libraries:
 
 Please feel free to file an issue for any bugs, missing features or documentation!
 
+# Screenshots
+
+More screenshots of different screens.
+
+## Browsing the list of identified fields in an EXE file.
+
+You can load multiple Kaitai parsers at any offset you want, this is the
+[https://formats.kaitai.io/dos\_mz/index.html](DosMz) and
+[https://formats.kaitai.io/microsoft\_pe/index.html](MicrosoftPE) parsers
+loaded at once.  If you have an embedded file,
+[https://taviso.github.io/hiewdocs/#mark](mark) it and Kiewtai will only
+analyze that block.
+
+![Kiewtai MZ/PE fields](doc/kiewtai-fields.png)
+
+## Browsing the chunks of a PNG image.
+
+The field names display as comments as you navigate around a file.
+
+![Kiewtai PNG chunks](doc/kiewtai-png.png)
+
+## Browsing the list of formats available.
+
+Kaitai has parsers for dozens of popular formats already made, you can  see the
+full list online [https://formats.kaitai.io/](here).
+
+![Kiewtai Parser List](doc/kiewtai-formats.png)
+
+
 # Building
 
 > If you don't want to build it yourself, check out the
