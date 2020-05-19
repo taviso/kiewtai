@@ -6,7 +6,7 @@ available. This means you can get all the fields marked and decoded for dozens
 of popular file formats. You can also use the Kaitai format to write a new
 template for a file format you're analyzing.
 
-![Screenshot](kiewtai.png)
+![Screenshot](doc/kiewtai.png)
 
 > Click [here](https://formats.kaitai.io/) to see a list of all the formats
 > supported by Kaitai.
@@ -30,7 +30,7 @@ You will be shown a list of all supported parsers, select the one you want.
 Kiewtai will highlight the different fields, and add a comment describing the
 field.
 
-![Kiewtai JPEG Demo](kiewtai-jpg.gif)
+![Kiewtai JPEG Demo](doc/kiewtai-jpg.gif)
 
 # Advanced Usage
 
@@ -57,7 +57,7 @@ different fields are. Press `F4` if you don't like this.
 The list of parsers is quite long, press `F5` and enter some search terms if
 you  like.
 
-![Kiewtai EXE Demo](kiewtai-exe.gif)
+![Kiewtai EXE Demo](doc/kiewtai-exe.gif)
 
 # Notes
 
@@ -119,6 +119,9 @@ using a command like this to fetch all the required code.
 git submodule update --init --recursive
 
 ```
+
+- The Kaitai compiler, ksc, is required.
+- Objcopy from GNU binutils is used to embed the Kaitai parsers.
 
 # Author
 
