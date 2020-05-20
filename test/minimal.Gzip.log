@@ -1,0 +1,17 @@
+Field: Gzip.magic Start: 0 End: 2
+Field: Gzip.compressionMethod Start: 2 End: 3
+Field: Gzip.flags Start: 3 End: 4
+Field: Gzip.modTime Start: 4 End: 8
+Field: Gzip.extraFlags Start: 8 End: 9
+Field: Gzip.os Start: 9 End: 10
+Field: Gzip.name Start: 10 End: 20
+Field: Gzip.body Start: 20 End: 28
+Field: Gzip.bodyCrc32 Start: 28 End: 32
+Field: Gzip.lenUncompressed Start: 32 End: 36
+Field: Gzip.flags.reserved1 Start: 3 End: 4
+Field: Gzip.flags.hasComment Start: 4 End: 4
+Field: Gzip.flags.hasName Start: 4 End: 4
+Field: Gzip.flags.hasExtra Start: 4 End: 4
+Field: Gzip.flags.hasHeaderCrc Start: 4 End: 4
+Field: Gzip.flags.isText Start: 4 End: 4
+Field: Gzip.extraFlags.compressionStrength Start: 8 End: 9
