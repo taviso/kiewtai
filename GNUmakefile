@@ -18,40 +18,40 @@ all: parsers
 parsers: $(ksydefs) | gendeps.exe
 	-$(KSC) $(KFLAGS) -I formats -d parsers $^
 ifeq ($(OS),Windows_NT)
-	cd parsers && for %%i in (*.js) do                                  \
+	cd parsers && for %%i in (*.js) do                                      \
 	    ..\\gendeps.exe %%i > %%i.d && $(MV) %%i.d %%i
 else
-	cd parsers && for i in *.js; do                                     \
-	    ../gendeps.exe $${i} > $${i}.d && $(MV) $${i}.d $${i};          \
+	cd parsers && for i in *.js; do                                         \
+	    ../gendeps.exe $${i} > $${i}.d && $(MV) $${i}.d $${i};              \
 	done
 endif
 
 parsers.h: parsers
 	echo // THIS IS A GENERATED FILE > $@
 ifeq ($(OS),Windows_NT)
-	for %%f in ($(basename $(notdir $(wildcard parsers/*.js)))) do      \
-	    echo extern char binary_parsers_%%f_js_start[];        >> $@ &  \
-	    echo extern size_t binary_parsers_%%f_js_size[];       >> $@ &  \
+	for %%f in ($(basename $(notdir $(wildcard parsers/*.js)))) do          \
+	    echo extern char binary_parsers_%%f_js_start[];        >> $@ &      \
+	    echo extern size_t binary_parsers_%%f_js_size[];       >> $@ &      \
 	
 	echo static KAITAI_PARSER KaitaiParsers[] = {   >> $@
 	
-	for %%f in ($(basename $(notdir $(wildcard parsers/*.js)))) do      \
-	    echo { "%%f",                                          >> $@ &  \
-	    echo binary_parsers_%%f_js_start,                      >> $@ &  \
+	for %%f in ($($(sort basename $(notdir $(wildcard parsers/*.js))))) do  \
+	    echo { "%%f",                                          >> $@ &      \
+	    echo binary_parsers_%%f_js_start,                      >> $@ &      \
 	    echo (ULONG) ^&binary_parsers_%%f_js_size },           >> $@
 	
 	echo }; >> $@
 else
-	for f in $(basename $(notdir $(wildcard parsers/*.js))); do         \
-	    printf "extern char binary_parsers_%s_js_start[];\n" $${f};     \
-	    printf "extern size_t binary_parsers_%s_js_size;\n" $${f};      \
+	for f in $(basename $(notdir $(wildcard parsers/*.js))); do             \
+	    printf "extern char binary_parsers_%s_js_start[];\n" $${f};         \
+	    printf "extern size_t binary_parsers_%s_js_size;\n" $${f};          \
 	done >> $@
 	
 	printf "static KAITAI_PARSER KaitaiParsers[] = {\n" >> $@
-	for f in $(basename $(notdir $(wildcard parsers/*.js))); do         \
-	    printf "{ \"%s\"," $${f};                                       \
-	    printf "binary_parsers_%s_js_start," $${f};                     \
-	    printf "(ULONG) &binary_parsers_%s_js_size },\n" $${f};         \
+	for f in $(sort $(basename $(notdir $(wildcard parsers/*.js)))); do     \
+	    printf "{ \"%s\"," $${f};                                           \
+	    printf "binary_parsers_%s_js_start," $${f};                         \
+	    printf "(ULONG) &binary_parsers_%s_js_size },\n" $${f};             \
 	done >> $@
 	
 	printf "};\n" >> $@
