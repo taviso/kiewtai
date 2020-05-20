@@ -64,11 +64,12 @@ you  like.
 > If you're a Hiew user and want to help make better documentation, click 
 > [here](https://github.com/taviso/hiewdocs)!
 
-This project uses the following third party tools libraries:
+This project uses the following third party libraries:
 
 - HEM SDK v0.53 [http://www.hiew.ru/](http://www.hiew.ru/)
 - Kaitai Struct  v0.9 [https://kaitai.io/](https://kaitai.io/)
 - Duktape v2.5.0 [https://duktape.org/](https://duktape.org/)
+- JSMin [http://crockford.com/javascript/](http://crockford.com/javascript/)
 
 Please feel free to file an issue for any bugs, missing features or documentation!
 

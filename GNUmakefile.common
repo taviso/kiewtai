@@ -137,7 +137,7 @@ release:: all
 	$(CC) $(CXXFLAGS) /c /Fo:$@ $<
 
 %.res: %.rc
-	$(RC) $(RFLAGS) $<
+	$(RC) $(CPPFLAGS) $(RFLAGS) $<
 
 %.obj: %.cc
 	$(CC) $(CXXFLAGS) /c /Fo:$@ $<

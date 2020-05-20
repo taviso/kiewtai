@@ -5,6 +5,9 @@ include GNUmakefile.common
 #   - GNU make      (make.exe)
 #   - GNU binutils  (objcopy.exe, e.g. MinGW)
 
+KIEWTAI_MAJVER=0
+KIEWTAI_MINVER=5
+
 KSC=cmd.exe /c kaitai-struct-compiler
 KFLAGS=--debug --target javascript
 
@@ -12,17 +15,19 @@ KFLAGS=--debug --target javascript
 ksydefs=$(wildcard formats/*/*.ksy)
 formats=$(wildcard parsers/*.js)
 
-all: parsers
-	$(MAKE) CPPFLAGS=$(CPPFLAGS) kiewtai.hem command.exe
+CPPFLAGS+=/DKIEWTAI_MAJVER=$(KIEWTAI_MAJVER) /DKIEWTAI_MINVER=$(KIEWTAI_MINVER)
 
-parsers: $(ksydefs) | gendeps.exe
+all: parsers
+	$(MAKE) CPPFLAGS="$(CPPFLAGS)" kiewtai.hem command.exe
+
+parsers: $(ksydefs) | gendeps.exe jsmin.exe
 	-$(KSC) $(KFLAGS) -I formats -d parsers $^
 ifeq ($(OS),Windows_NT)
 	cd parsers && for %%i in (*.js) do                                      \
-	    ..\\gendeps.exe %%i > %%i.d && $(MV) %%i.d %%i
+	    ..\\gendeps.exe %%i > %%i.d && ..\\jsmin.exe < %%i.d > %%i
 else
 	cd parsers && for i in *.js; do                                         \
-	    ../gendeps.exe $${i} > $${i}.d && iconv -c < $${i}.d > $${i};       \
+	    ../gendeps.exe $${i} > $${i}.d && ../jsmin.exe < $${i}.d > $${i};   \
 	done
 endif
 
@@ -78,4 +83,7 @@ kiewtai.dll: kaitai.obj duktape.obj PolyFill.obj KaitaiStream.obj \
 clean::
 	$(RMDIR) parsers
 	$(RM) parsers.h *.hem
+	$(RM) kiewtai-*.zip
 
+release:: kiewtai.hem README.md
+	zip kiewtai-$(KIEWTAI_MAJVER).$(KIEWTAI_MINVER).zip kiewtai.hem README.md
