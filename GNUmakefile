@@ -15,10 +15,16 @@ formats=$(wildcard parsers/*.js)
 all: parsers
 	$(MAKE) kiewtai.hem command.exe
 
-parsers: $(ksydefs)
+parsers: $(ksydefs) | gendeps.exe
 	-$(KSC) $(KFLAGS) -I formats -d parsers $^
-	cd parsers && $(CAT) Exif.js Jpeg.js > ExifJpegCombined.js
-	cd parsers && $(MV) ExifJpegCombined.js Jpeg.js
+ifeq ($(OS),Windows_NT)
+	cd parsers && for %%i in (*.js) do                                  \
+	    ..\\gendeps.exe %%i > %%i.d && $(MV) %%i.d %%i
+else
+	cd parsers && for i in *.js; do                                     \
+	    ../gendeps.exe $${i} > $${i}.d && $(MV) $${i}.d $${i};          \
+	done
+endif
 
 parsers.h: parsers
 	echo // THIS IS A GENERATED FILE > $@
@@ -51,10 +57,10 @@ else
 	printf "};\n" >> $@
 endif
 
-parsers/Jpeg.js:
+kaitai.obj: | parsers.h
+kiewtai.obj: | parsers.h
 
-kaitai.obj:     | parsers.h
-kiewtai.obj:    | parsers.h
+gendeps.exe: duktape.obj
 
 command.exe: kaitai.obj duktape.obj PolyFill.obj KaitaiStream.obj \
                 pako_inflate.obj $(formats:.js=.obj)

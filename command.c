@@ -28,40 +28,44 @@ VOID CALLBACK ErrorNotify(PVOID UserPtr, LPCSTR Message)
 }
 
 int main(int argc, char *argv[]) {
-    char *buffer;
-    FILE *input;
+    char *buffer = NULL;
+    FILE *input = NULL;
     size_t len;
 
     if (argc != 3) {
         fprintf(stderr, "usage: %s [ParserName] [file]\n", argv[0]);
-        return 1;
+        goto error;
     }
 
     input = fopen(argv[2], "rb");
 
+    if (input == NULL) {
+        fprintf(stderr, "could not open file %s\n", argv[2]);
+        goto error;
+    }
+
     fseek(input, 0, SEEK_END);
+
     len = ftell(input);
+
     rewind(input);
 
     buffer = malloc(len);
 
-    fread(buffer, len, 1, input);
+    if (buffer == NULL) {
+        fprintf(stderr, "memory allocation failed\n");
+        goto error;
+    }
+
+    if (fread(buffer, 1, len, input) != len) {
+        fprintf(stderr, "failed to read file\n");
+        goto error;
+    }
 
     for (PKAITAI_PARSER Parser = &KaitaiParsers[0]; Parser->Name; Parser++) {
         if (strcmp(Parser->Name, argv[1]) == 0) {
-            fprintf(stderr, "Detailed:\n");
             if (KaitaiQueryFormat(Parser,
                                   KAITAI_FLAG_EXPANDARRAYS,
-                                  buffer,
-                                  len,
-                                  FieldNotify,
-                                  ErrorNotify,
-                                  NULL) == FALSE) {
-                fprintf(stderr, "Parse Failure\n");
-            }
-            fprintf(stderr, "Simple:\n");
-            if (KaitaiQueryFormat(Parser,
-                                  KAITAI_FLAG_DEFAULT,
                                   buffer,
                                   len,
                                   FieldNotify,
@@ -74,6 +78,13 @@ int main(int argc, char *argv[]) {
     }
 
     fprintf(stderr, "could not find matching parser\n");
+
+error:
+    if (buffer)
+        free(buffer);
+    if (input)
+        fclose(input);
+    return 1;
 
 success:
     free(buffer);
