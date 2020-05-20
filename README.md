@@ -110,13 +110,24 @@ The field names display as comments as you navigate around a file.
 
 ![Kiewtai PNG chunks](doc/kiewtai-png.png)
 
-## Browsing the list of formats available.
+## Browsing Formats available.
 
 Kaitai has parsers for dozens of popular formats already made, you can  see the
-full list online [here](https://formats.kaitai.io/).
+full list online [here](https://formats.kaitai.io/). The list is long, you type
+`F5` to serach it.
 
 ![Kiewtai Parser List](doc/kiewtai-formats.png)
 
+## Automatically handle common subformats.
+
+Here Kiewtai parsed a pcap file, and all the Tcp, Udp, Icmp, packets and
+Ethernet frames inside the pcap are automatically recognized. This all happened
+automatically when loading the Pcap parser!
+
+![Viewing the MAC address](doc/pcap-srcmac.png)
+
+
+![List all the PCAP fields](doc/pcap-listfield.png)
 
 # Building
 
@@ -147,9 +158,16 @@ If you use chocolatey, this command should be enough:
 
 If everything worked, you should have a file called `kiewtai.hem`
 
-If you get `The system cannot find the file specified` errors, verify
-`objcopy.exe`, `make.exe` and `kaitai-struct-compiler.bat` are all in your
-`%PATH%`.
+> If you get `The system cannot find the file specified` errors, verify
+> `objcopy.exe`, `make.exe` and `kaitai-struct-compiler.bat` are all in your
+> `%PATH%`.
+
+## Testing
+
+There are some simple tests in the `test` directory that verify some common
+formats are working as expected.
+
+Simply type `make` in the `test` directory to run them.
 
 # Author
 
