@@ -239,7 +239,9 @@ BOOL KaitaiQueryFormat(PKAITAI_PARSER Format,
     duk_peval_string(ctx, Format->Name);
     duk_peval_string(ctx, "KaitaiStream");
 
-    memcpy(duk_push_buffer(ctx, BufSize, false), Buffer, BufSize);
+    // Copy Hiew data to duktape.
+    duk_push_external_buffer(ctx);
+    duk_config_buffer(ctx, -1, Buffer, BufSize);
 
     if (duk_pnew(ctx, 1) != 0) {
         snprintf(ErrorBuf,
