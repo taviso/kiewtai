@@ -30,7 +30,7 @@ typedef struct _PARSE_CONTEXT {
     JMPBUF FatalError;
 } PARSE_CONTEXT, *PPARSE_CONTEXT;
 
-#ifndef _DEBUG
+#ifdef _DEBUG
 static duk_ret_t debug_log_msg(duk_context *ctx)
 {
     const char *msg = duk_to_string(ctx, 0);
@@ -232,7 +232,7 @@ BOOL KaitaiQueryFormat(PKAITAI_PARSER Format,
     // Create a new parser context.
     ctx = duk_create_heap(NULL, NULL, NULL, &ParseContext, DukFatalError);
 
-#ifndef _DEBUG
+#ifdef _DEBUG
     duk_push_c_function(ctx, debug_log_msg, 1);
     duk_put_global_string(ctx, "debug");
 #endif
