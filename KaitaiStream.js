@@ -49,7 +49,7 @@ KaitaiStream.depUrls = {
   // processZlib uses this and expected a link to a copy of pako.
   // specifically the pako_inflate.min.js script at:
   // https://raw.githubusercontent.com/nodeca/pako/master/dist/pako_inflate.min.js
-  zlib: undefined
+  zlib: "//pako_inflate.js"
 };
 
 /**

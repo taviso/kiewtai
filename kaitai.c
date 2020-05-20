@@ -30,6 +30,17 @@ typedef struct _PARSE_CONTEXT {
     JMPBUF FatalError;
 } PARSE_CONTEXT, *PPARSE_CONTEXT;
 
+#ifndef _DEBUG
+static duk_ret_t debug_log_msg(duk_context *ctx)
+{
+    const char *msg = duk_to_string(ctx, 0);
+
+    fprintf(stderr, "debug: %s\n", msg);
+
+    return 0;
+}
+#endif
+
 // The stack is expected to have an Object and a name to dump, they
 // are not consumed, you should pop them.
 static void dump_debug_data(duk_context *ctx, PPARSE_CONTEXT Context)
@@ -220,6 +231,11 @@ BOOL KaitaiQueryFormat(PKAITAI_PARSER Format,
 
     // Create a new parser context.
     ctx = duk_create_heap(NULL, NULL, NULL, &ParseContext, DukFatalError);
+
+#ifndef _DEBUG
+    duk_push_c_function(ctx, debug_log_msg, 1);
+    duk_put_global_string(ctx, "debug");
+#endif
 
     // Setup a jmpbuf to handle fatal duktape exceptions.
     if (setjmp(ParseContext.FatalError)) {

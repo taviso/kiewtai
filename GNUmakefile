@@ -13,7 +13,7 @@ ksydefs=$(wildcard formats/*/*.ksy)
 formats=$(wildcard parsers/*.js)
 
 all: parsers
-	$(MAKE) kiewtai.hem command.exe
+	$(MAKE) CPPFLAGS=$(CPPFLAGS) kiewtai.hem command.exe
 
 parsers: $(ksydefs) | gendeps.exe
 	-$(KSC) $(KFLAGS) -I formats -d parsers $^
@@ -22,7 +22,7 @@ ifeq ($(OS),Windows_NT)
 	    ..\\gendeps.exe %%i > %%i.d && $(MV) %%i.d %%i
 else
 	cd parsers && for i in *.js; do                                         \
-	    ../gendeps.exe $${i} > $${i}.d && $(MV) $${i}.d $${i};              \
+	    ../gendeps.exe $${i} > $${i}.d && iconv -c < $${i}.d > $${i};       \
 	done
 endif
 
