@@ -6,7 +6,7 @@ include GNUmakefile.common
 #   - GNU binutils  (objcopy.exe, e.g. MinGW)
 
 KIEWTAI_MAJVER=0
-KIEWTAI_MINVER=5
+KIEWTAI_MINVER=6
 
 KSC=cmd.exe /c kaitai-struct-compiler
 KFLAGS=--debug --target javascript
