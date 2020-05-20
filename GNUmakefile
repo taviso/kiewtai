@@ -16,7 +16,7 @@ all: parsers
 	$(MAKE) kiewtai.hem command.exe
 
 parsers: $(ksydefs)
-	$(KSC) $(KFLAGS) -I formats -d parsers $^
+	-$(KSC) $(KFLAGS) -I formats -d parsers $^
 	cd parsers && $(CAT) Exif.js Jpeg.js > ExifJpegCombined.js
 	cd parsers && $(MV) ExifJpegCombined.js Jpeg.js
 
