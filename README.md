@@ -35,8 +35,9 @@ field.
 # Advanced Usage
 
 > If you want Kiewtai to analyze a section of a larger file, for example you
-> have a firmware blob or filesystem image, Simply mark the section you want
-> analyzed with `*` first. If you work in DFIR, you might call this "carving".
+> have a firmware blob or filesystem image, Simply
+> [mark](https://taviso.github.io/hiewdocs/?query=mark%20a%20block) the section
+> you want analyzed. If you work in DFIR, you probably call this "carving".
 
  - Press `F2` to toggle between Simple and Detailed parsing.
 
@@ -49,8 +50,10 @@ you navigate around. You can also browse and search them with `F12`.
 
 - Press `F4` to enable or disable markers.
 
-Kiewtai will add color markers by default so you can easily see where the
-different fields are. Press `F4` if you don't like this.
+Kiewtai will add color
+[markers](https://taviso.github.io/hiewdocs/?query=assign%20a%20color) by
+default so you can easily see where the different fields are. Press `F4` if you
+don't like this.
 
 - Press `F5` to search for a parser.
 
@@ -73,7 +76,7 @@ This project uses the following third party libraries:
 
 Please feel free to file an issue for any bugs, missing features or documentation!
 
-Oh, and I prounounce Kiewtai "cue-tie". `:)`
+Oh, and I prounounce Kiewtai "cue-tie". 🙂
 
 # Screenshots
 
