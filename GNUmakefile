@@ -35,7 +35,7 @@ ifeq ($(OS),Windows_NT)
 	
 	echo static KAITAI_PARSER KaitaiParsers[] = {   >> $@
 	
-	for %%f in ($($(sort basename $(notdir $(wildcard parsers/*.js))))) do  \
+	for %%f in ($(sort $(basename $(notdir $(wildcard parsers/*.js))))) do  \
 	    echo { "%%f",                                          >> $@ &      \
 	    echo binary_parsers_%%f_js_start,                      >> $@ &      \
 	    echo (ULONG) ^&binary_parsers_%%f_js_size },           >> $@
