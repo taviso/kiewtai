@@ -60,7 +60,8 @@ command.exe: kaitai.obj duktape.obj PolyFill.obj KaitaiStream.obj \
                 pako_inflate.obj $(formats:.js=.obj)
 
 kiewtai.dll: kaitai.obj duktape.obj PolyFill.obj KaitaiStream.obj \
-                pako_inflate.obj $(formats:.js=.obj) hiewgate.obj
+                pako_inflate.obj $(formats:.js=.obj) hiewgate.obj \
+                kiewtai.res
 
 %.obj: %.js
 	objcopy -I binary -O pe-i386 $^ $@
